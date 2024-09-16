@@ -1,0 +1,9 @@
+form{
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+}
+
+form > input, button {
+    width: 20vw;
+}

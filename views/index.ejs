@@ -1,0 +1,43 @@
+<body>
+    <head>
+        <link rel="stylesheet" href="/styles.css">
+        <h1>Homepage</h1>
+    </head>
+    <nav>
+        <ul>
+            <% if (locals.movies) {%>
+            <% for (let i = 0; i < movies.length; i++) { %>
+                <h3>Message <%=[i]%></h3>
+                <li>
+                    <p><%= movies[i].title %></p>
+                    <p><%= movies[i].year %></p>
+                    <p><%= movies[i].director %></p>
+                    <p><%= movies[i].genre %></p>
+                    <p><%= movies[i].actor %></p>
+                    
+                    
+                </li>
+           <% } %>
+           <% } %>
+        </ul>
+        <ul>
+            <h3>Category</h3>
+            <% if (locals.movies) {%>
+                <% for (let i = 0; i < movies.length; i++) { %>
+                    <% if (movies[i].genre) {%>
+                        
+                    <li>
+                        <a href="/category/<%= movies[i].genre %>">
+                            <%= movies[i].genre %>
+                       </a>
+                        
+                    </li>
+                    <% } %>
+                    <% } %>
+           <% } %>
+        </ul>
+        <a href="/create">
+            <span>Create new User ==></span>
+        </a>
+    </nav>
+</body>

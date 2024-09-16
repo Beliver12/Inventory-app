@@ -1,0 +1,27 @@
+<body>
+    <head>
+        <link rel="stylesheet" href="/styles.css">
+        <h1>Homepage</h1>
+    </head>
+    <nav>
+        <ul>
+            <% if (locals.category) {%>
+            <% for (let i = 0; i < category.length; i++) { %>
+                <h3>Message <%=[i]%></h3>
+                <li>
+                    <p><%= category[i].title %></p>
+                    <p><%= category[i].year %></p>
+                    <p><%= category[i].director %></p>
+                    <p><%= category[i].genre %></p>
+                    <p><%= category[i].actor %></p>
+                    
+                    
+                </li>
+           <% } %>
+           <% } %>
+        </ul>
+        <a href="/create">
+            <span>Create new User ==></span>
+        </a>
+    </nav>
+</body>
