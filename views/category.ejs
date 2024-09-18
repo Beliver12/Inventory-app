@@ -14,7 +14,11 @@
                     <p><%= category[i].director %></p>
                     <p><%= category[i].genre %></p>
                     <p><%= category[i].actor %></p>
-                    
+                    <% movieinfo.forEach((item) => { %>
+                        <% if (item.title === category[i].title) {%>
+                    <img src="<%= moviedata.base_url %><%= moviedata.poster_sizes[2] %><%= item.poster_path %>" alt="">
+                    <% } %>
+                    <% }); %> 
                     
                 </li>
            <% } %>

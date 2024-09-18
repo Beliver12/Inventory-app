@@ -7,15 +7,27 @@
         <ul>
             <% if (locals.movies) {%>
             <% for (let i = 0; i < movies.length; i++) { %>
-                <h3>Message <%=[i]%></h3>
+                <h3>Movie <%=[i]%></h3>
                 <li>
                     <p><%= movies[i].title %></p>
                     <p><%= movies[i].year %></p>
                     <p><%= movies[i].director %></p>
                     <p><%= movies[i].genre %></p>
                     <p><%= movies[i].actor %></p>
-                    
-                    
+                    <% if (locals.movieinfo) {%>
+                        <% for (let a = 0; a <  movieinfo.length; a++) { %>
+
+                            <% for (let j = 0; j < movieinfo[a].results.length; j++) { %>
+
+                                <% if (movieinfo[a].results[j].title === movies[i].title) {%>
+                                    <img src="<%= moviedata.base_url%><%= moviedata.poster_sizes[2]%><%= movieinfo[a].results[j].poster_path %>" alt="">
+
+                                    <% } %>
+
+                                <% } %>
+
+                            <% } %>
+                    <% } %>
                 </li>
            <% } %>
            <% } %>
