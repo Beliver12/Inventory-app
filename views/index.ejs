@@ -14,39 +14,21 @@
                     <p><%= movies[i].director %></p>
                     <p><%= movies[i].genre %></p>
                     <p><%= movies[i].actor %></p>
-                    <% if (locals.movieinfo) {%>
-                        <% for (let a = 0; a <  movieinfo.length; a++) { %>
-
-                            <% for (let j = 0; j < movieinfo[a].results.length; j++) { %>
-
-                                <% if (movieinfo[a].results[j].title === movies[i].title) {%>
-                                    <img src="<%= moviedata.base_url%><%= moviedata.poster_sizes[2]%><%= movieinfo[a].results[j].poster_path %>" alt="">
-
-                                    <% } %>
-
-                                <% } %>
-
-                            <% } %>
-                    <% } %>
+                     <img src="<%= movies[i].url %>" alt="">
                 </li>
            <% } %>
            <% } %>
         </ul>
         <ul>
             <h3>Category</h3>
-            <% if (locals.movies) {%>
-                <% for (let i = 0; i < movies.length; i++) { %>
-                    <% if (movies[i].genre) {%>
+          
                         
                     <li>
-                        <a href="/category/<%= movies[i].genre %>">
-                            <%= movies[i].genre %>
+                        <a href="/category/Horror">
+                            Horror
                        </a>
                         
                     </li>
-                    <% } %>
-                    <% } %>
-           <% } %>
         </ul>
         <a href="/create">
             <span>Create new User ==></span>

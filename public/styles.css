@@ -7,3 +7,8 @@ form{
 form > input, button {
     width: 20vw;
 }
+
+img{
+    width: 300px;
+    height: 300px;
+}
