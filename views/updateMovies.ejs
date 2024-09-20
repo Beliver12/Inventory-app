@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+    <title><%= title %></title>
+  </head>
+<body>
+  <h1><%= title %></h1>
+  <%- include("partials/errors.ejs") %>
+  <form action="/update/<%=movies[id].title%>" method="POST">
+    <label for="title">Title: </label>
+    <input value="<%= movies[id].title %>" type="text" name="title" id="title" required>
+    <label  for="year">Year: </label>
+    <input value="<%= movies[id].date %>" type="date" name="year" id="year" required>
+
+    <label for="director">Director: </label>
+    <input value="<%= movies[id].director %>" type="text" name="director" id="director" required>
+    <label for="genre">Genre: </label>
+    <input value="<%= movies[id].genre %>" type="text" name="genre" id="genre" required>
+    <label for="actor">Actor: </label>
+    <input value="<%= movies[id].actor %>" type="text" name="actor" id="actor" required>
+    <label for="url">URL: </label>
+    <input value="<%= movies[id].url %>" type="text" name="url" id="url" required>
+    <button type="submit">Submit</button>
+  </form>
+  <a href="/">Back to home</a>
+</body>
+</html>

@@ -4,8 +4,12 @@ form{
     flex-direction: column;
 }
 
-form > input, button {
+form > input {
     width: 20vw;
+}
+
+form > button {
+width: 5vw;
 }
 
 img{
