@@ -7,30 +7,25 @@ const dateErr = "must be correct.";
 
 const validateMovie = [
   body("year").trim().isDate().withMessage(`Year ${dateErr}`),
-  body("genre").trim().isAlpha().withMessage(`Genre ${alphaErr}`),
+  
 ];
 
 let movies;
 let moviesCategory = [];
 
 exports.usersListGet = async (req, res) => {
-  //await moviesStorage.query("DROP TABLE movies")
-     movies = await moviesStorage.query("SELECT * FROM movies2 ORDER BY id ASC");
+     movies = await moviesStorage.query("SELECT * FROM movies ORDER BY id ASC");
       
-     movies.rows.forEach((row) => {
-      
+     movies.rows.forEach((row) => {  
       if(!moviesCategory.includes(row.genre))
       moviesCategory.push(row.genre)
-      //console.log(moviesCategory);
      })
-    console.log(moviesCategory[1])
+
     res.render("index", {
       title: "User list",
       movies: movies.rows,
       moviesCategory: moviesCategory,
-    });
-
-    
+    }); 
   };
 
 exports.moviesCreateGet = (req, res) => {
@@ -40,10 +35,16 @@ exports.moviesCreateGet = (req, res) => {
 }
 
 exports.movieUpdateGet = (req, res) => {
+  let id = [];
+  movies.rows.forEach((row, index) => {
+      if(row.id === Number(req.params.id)) {
+        id.push(index)
+      }
+  })
   res.render("updateMovies", {
     title: "Update Movie",
     movies: movies.rows,
-    id: req.params.id - 1,
+    id: id,
   })
 }
 
@@ -59,9 +60,10 @@ exports.moviesCreatePost = [
         errors: errors.array(),
       });
     }
-    
-   await moviesStorage.query("INSERT INTO movies2 (title, year, director, genre, actor, url) VALUES ($1, $2, $3, $4, $5, $6)", 
-                            [req.body.title, req.body.year, req.body.director, req.body.genre, req.body.actor, req.body.url]);
+    const genre = req.body.genre.toLowerCase();
+    const newGenre = genre.replaceAll('/', '-')
+   await moviesStorage.query("INSERT INTO movies (title, year, director, genre, actor, url) VALUES ($1, $2, $3, $4, $5, $6)", 
+                            [req.body.title, req.body.year, req.body.director, newGenre, req.body.actor, req.body.url]);
                      res.redirect("/")                        
   }
 ]
@@ -76,32 +78,36 @@ exports.movieUpdatePost = [
         errors: errors.array(),
       });
     }
-    await moviesStorage.query("UPDATE movies2 SET title = $1, year = $2, director = $3, genre = $4, actor = $5, url = $6 WHERE title = $7",
-    [req.body.title, req.body.year, req.body.director, req.body.genre, req.body.actor, req.body.url, req.params.id] )
-  const update = await moviesStorage.query("SELECT * FROM movies2")
-    console.log(update)
+    const genre = req.body.genre.toLowerCase();
+    const newGenre = genre.replaceAll('/', '-')
+
+    await moviesStorage.query("UPDATE movies SET title = $1, year = $2, director = $3, genre = $4, actor = $5, url = $6 WHERE title = $7",
+    [req.body.title, req.body.year, req.body.director, newGenre, req.body.actor, req.body.url, req.params.id] )
+  //const update = await moviesStorage.query("SELECT * FROM movies")
+   // console.log(update)
     res.redirect("/")
   }
 ]
 
 exports.movieCategoryGet = async (req, res) => {
-  const category = await moviesStorage.query("SELECT * FROM movies2 WHERE genre = $1 ", [req.params.genre]);
-  console.log(category);
+  const category = await moviesStorage.query("SELECT * FROM movies WHERE genre = $1 ", [req.params.genre]);
+  //console.log(category);
   res.render("category", {title: req.params.genre, category: category.rows,});
 }
 
 exports.movieDeletePost = async (req, res) => {
-  await moviesStorage.query("DELETE FROM movies2 WHERE id = $1", [req.params.id])
+  await moviesStorage.query("DELETE FROM movies WHERE id = $1", [req.params.id])
   moviesCategory = [];
-  const update = await moviesStorage.query("SELECT * FROM movies2")
-    console.log(update)
+  //const update = await moviesStorage.query("SELECT * FROM movies")
+    //console.log(update)
     res.redirect("/")
 }
 
 exports.categoryDeletePost = async (req, res) => {
-  await moviesStorage.query("DELETE FROM movies2 WHERE genre = $1", [req.params.genre])
+  await moviesStorage.query("DELETE FROM movies WHERE genre = $1", [req.params.genre])
   moviesCategory = [];
-  const update = await moviesStorage.query("SELECT * FROM movies2")
-    console.log(update)
+ // const update = await moviesStorage.query("SELECT * FROM movies")
+  //  console.log(update)
     res.redirect("/")
 }
+

@@ -1,7 +1,89 @@
+body{
+    margin: 0;
+}
+
+header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 form{
     height: 50vh;
     display: flex;
     flex-direction: column;
+}
+
+nav{
+    display: grid;
+    grid-template-columns: 260px 1fr;
+}
+
+#category{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    border: 1px solid black;
+    margin: 0;
+}
+
+#movies{
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    margin: 0;
+}
+
+#movies-category {
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+#movies > li, #movies-category > li {
+    display: grid;  
+    grid-template-columns: 300px 300px;
+    border: 1px solid black;
+}
+
+#info {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+ img {
+    grid-column: 1/2;
+}
+
+#delete {
+    height: 5vh;
+    grid-row: 1/2;
+    grid-column: 2/3;
+    align-self: flex-end;
+    justify-self: center;
+}
+
+#delete-category {
+    height: 5vh;
+    
+}
+
+#update {
+    grid-row: 1/2;
+    grid-column: 2/3;
+    align-self: flex-end;
+    justify-self: center;
+}
+
+#url {
+    width: 20vw;
 }
 
 form > input {

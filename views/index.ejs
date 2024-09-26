@@ -1,30 +1,39 @@
 <body>
     <head>
         <link rel="stylesheet" href="/styles.css">
+        <header>
         <h1>Homepage</h1>
+        <a id="add" href="/create">
+            <h2>Add movie</h2>
+        </a>
+        </header>
+         
     </head>
     <nav>
-        <ul>
+        <ul id="Movies">
             <% if (locals.movies) {%>
             <% for (let i = 0; i < movies.length; i++) { %>
-                <h3>Movie <%=[i]%></h3>
+                <h3><%= movies[i].title %></h3>
                 <li>
-                    <p><%= movies[i].title %></p>
-                    <p><%= movies[i].year %></p>
-                    <p><%= movies[i].director %></p>
-                    <p><%= movies[i].genre %></p>
-                    <p><%= movies[i].actor %></p>
+                    
+                    <div id="info">
+                        <p> <strong>Release: </strong><%= movies[i].year.toDateString() %></p>
+                        <p><strong>Director:</strong> <%= movies[i].director %></p>
+                        <p><strong>Genre:</strong> <%= movies[i].genre %></p>
+                        <p><strong>Actor:</strong> <%= movies[i].actor %></p>
+                    </div>
                      <img src="<%= movies[i].url %>" alt="">
-                     <a href="/update/<%= movies[i].id %>">Update</a>
-                     <form action="/delete/<%= movies[i].id %> " method="POST" style="display:inline;">
-                        <button type="submit" onclick="return confirm('Are you sure you want to delete this category? ');">Delete</button>
+                     <a id="update" href="/update/<%= movies[i].id %>"onclick="return confirm('Are you sure you want to update this movie?');" >Update</a>
+                     <form id="delete" action="/delete/<%= movies[i].id %> " method="POST" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this movie?' )">Delete</button>
                         </form>
                 </li>
            <% } %>
            <% } %>
+           
         </ul>
-        <ul>
-            <h3>Category</h3>
+        <ul id="category">
+            <h1>Categories</h1>
             <% if (locals.moviesCategory) {%>
                 <% for (let i = 0; i < moviesCategory.length; i++) { %>
                         
@@ -38,8 +47,6 @@
                     <% } %>
                     <% } %>     
         </ul>
-        <a href="/create">
-            <span>Create new User ==></span>
-        </a>
+       
     </nav>
 </body>
